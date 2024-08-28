@@ -1,0 +1,122 @@
+<!-- boilerplate code to use -->
+<% layout("./layouts/boilerplate.ejs") -%>
+<!-- For Map.js file -->
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const listing = <%- JSON.stringify(listing) %>;
+</script>
+<div class="card show-card col-5 offset-4 show-card mt-4">
+  <h3 class="card-title"><%= listing.title %></h3>
+  <img
+    src="<%= listing.image.url %>"
+    class="card-img-top show-img"
+    alt="listing_img"
+  />
+  <div class="card-body">
+    <p class="card-owner mt-2">
+      <b>Owner : </b><i><%= listing.owner.username %></i>
+    </p>
+    <p class="card-description mt-2"><%= listing.description %></p>
+    <p class="card-price">
+      <b>Price : </b>&#8377;<%= listing.price.toLocaleString("en-IN") %>
+    </p>
+    <p class="card-location"><b>Location : </b><%= listing.location %></p>
+    <p class="card-country"><b>Country : </b><%= listing.country %></p>
+  </div>
+  <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+  <div class="btns">
+    <span class="col-2">
+      <a href="/listings/<%= listing._id %>/edit" class="col-1">
+        <button class="btn btn-dark edit-btn">Edit</button>
+      </a>
+    </span>
+    <span class="col-2">
+      <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button class="btn btn-dark edit-btn">Delete</button>
+      </form>
+    </span>
+  </div>
+  <% } %>
+</div>
+<div>
+  <p class="mt-3"></p>
+  <% if(currUser) { %>
+  <hr />
+  <h5 class="col-5">Leave a Review</h5>
+  <form
+    method="post"
+    action="/listings/<%= listing._id %>/reviews"
+    novalidate
+    class="needs-validation"
+  >
+    <div>
+      <label for="rating" class="form-label mt-3">Ratings</label>
+      <fieldset class="starability-slot">
+        <input
+          type="radio"
+          id="no-rate"
+          class="input-no-rate form-radio"
+          name="review[rating]"
+          value="1"
+          checked
+          aria-label="No rating."
+        />
+        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+        <label for="first-rate1" title="Not Good">1 star</label>
+        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+        <label for="first-rate2" title="Good">2 stars</label>
+        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+        <label for="first-rate3" title="Average">3 stars</label>
+        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+        <label for="first-rate4" title="Very good">4 stars</label>
+        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+        <label for="first-rate5" title="Amazing">5 stars</label>
+      </fieldset>
+    </div>
+    <div>
+      <label for="comment" class="form-label mt-2">Comments</label>
+      <textarea
+        required
+        name="review[comment]"
+        id="comment"
+        cols="6"
+        rows="4"
+        class="form-control"
+      ></textarea>
+      <div class="invalid-feedback">Please enter a review.</div>
+    </div>
+    <button class="btn btn-outline-dark mt-3">Submit</button>
+  </form>
+  <p class="mt-4 mb-3"></p>
+  <% } %> <% if(listing.reviews.length > 0) { %>
+  <hr />
+  <h5 class="col-5">All Reviews</h5>
+  <div class="row review-container">
+    <% for (let review of listing.reviews) { %>
+    <div class="card col-5 mt-4 ms-3 mb-3">
+      <div class="card-body">
+        <h5 class="card-title mt-0">@<%= review.author.username %></h5>
+        <p
+          class="starability-result card-text mt-3"
+          data-rating="<%= review.rating %>"
+        ></p>
+        <p class="card-text"><%= review.comment %></p>
+      </div>
+      <form
+        method="post"
+        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+      >
+        <button class="btn btn-sm btn-dark mb-3 review-btn">Delete Post</button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+  <hr />
+  <div class="col-5 mt-3">
+    <h5 class="col-5">Where you'll be?</h5>
+    <div id="map"></div>
+  </div>
+  <script src="/js/map.js"></script>
+  <p class="mb-6 mt-6"><br /><br /><br /><br /><br /><br /></p>
+</div>

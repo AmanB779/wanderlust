@@ -1,0 +1,86 @@
+<!-- boilerplate code to use -->
+<% layout("./layouts/boilerplate.ejs") -%>
+<div id="filters">
+  <div class="filter">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p>Trending</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-house-chimney-user"></i>
+    <p>Rooms</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-arrow-right-to-city"></i></div>
+    <p>Iconic Cities</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain"></i></div>
+    <p>Mountains</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-brands fa-fort-awesome"></i></div>
+    <p>Castels</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p>Amazing Pools</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-tents"></i></div>
+    <p>Camping</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain-city"></i></div>
+    <p>Farms</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-igloo"></i></div>
+    <p>Arctic</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-landmark-dome"></i></div>
+    <p>Domes</p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-ship"></i></div>
+    <p>Ships</p>
+  </div>
+  <div class="tax-toogle">
+    <div class="form-check-reverse form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault">
+        Display total after taxes
+      </label>
+    </div>
+  </div>
+</div>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for (let listing of allListings) { %>
+  <div class="card index-card col">
+    <a href="/listings/<%= listing.id %>">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top img-index"
+        alt="listing_image"
+      />
+      <div class="card-body">
+        <p class="card-text card-text-listing">
+          <b> <%= listing.title %> </b><br />
+          <!-- <small><%= listing.location %>, <%= listing.country %> </small></b><br /> -->
+          <span class="card-price"
+            ><small>&#8377;<%= listing.price.toLocaleString("en-IN") %></small>
+            / Night &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="tax-info"> 18% GST</span><br />
+          </span>
+        </p>
+      </div>
+    </a>
+  </div>
+  <% } %>
+</div>
+<script src="/js/tax.js"></script>

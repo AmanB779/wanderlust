@@ -1,0 +1,93 @@
+<!-- boilerplate code to use -->
+<% layout("./layouts/boilerplate.ejs") -%>
+<div class="row mt-4">
+  <div class="col-8 offset-2">
+    <h3>Create a New Listing</h3>
+    <br />
+    <form
+      method="post"
+      action="/listings"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <!-- listing[parameter] is used to make a listing object with key value pairs -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          name="listing[title]"
+          required
+          class="form-control"
+          placeholder="Enter a catchy title"
+          type="text"
+        />
+        <div class="valid-feedback">Title looks good!</div>
+        <div class="invalid-feedback">Please enter a title.</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          name="listing[description]"
+          required
+          class="form-control"
+          placeholder="Enter description"
+          type="text"
+        ></textarea>
+        <div class="valid-feedback">Description looks good!</div>
+        <div class="invalid-feedback">Please enter description.</div>
+      </div>
+      <div class="mb-3">
+        <label for="image.url" class="form-label">Upload Listing Image</label>
+        <input
+          name="listing[image]"
+          class="form-control"
+          placeholder="Upload Image"
+          type="file"
+          required
+        />
+      </div>
+      <div class="row">
+        <div class="mb-3 col-4 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input
+            name="listing[price]"
+            required
+            class="form-control"
+            placeholder="Enter price"
+            type="number"
+            step="1"
+            value="1"
+          />
+          <div class="valid-feedback">Price looks good!</div>
+          <div class="invalid-feedback">Please enter a valid price.</div>
+        </div>
+        <div class="mb-3 col-8 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input
+            name="listing[country]"
+            required
+            class="form-control"
+            placeholder="Enter country"
+            type="text"
+          />
+          <div class="valid-feedback">Country looks good!</div>
+          <div class="invalid-feedback">Please enter a valid country.</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          name="listing[location]"
+          required
+          class="form-control"
+          placeholder="New Delhi, India"
+          type="text"
+        />
+        <div class="valid-feedback">Loaction looks good!</div>
+        <div class="invalid-feedback">Please enter a valid location.</div>
+      </div>
+      <button class="btn btn-dark edit-btn mt-2">Save Listing</button>
+      <br /><br /><br /><br />
+    </form>
+  </div>
+</div>

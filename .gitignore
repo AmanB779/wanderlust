@@ -1,0 +1,6 @@
+# to ignore env file
+.env
+# to remove all node modules and files
+node_modules/
+# to ignore all files like this in any folder, subfolder
+**/.DS_Store
